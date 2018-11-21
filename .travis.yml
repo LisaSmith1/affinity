@@ -12,4 +12,8 @@ script:
 - docker exec affinity vendor/bin/phpunit
 after_success:
 - rm .env
+- rm .env.enc
 - docker build -t affinity .
+- docker run -d --name affinity affinity 
+- docker exec -it affinity bash -c "cd /var/www;ls -la"
+- docker stop affinity
