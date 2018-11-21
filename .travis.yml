@@ -15,5 +15,5 @@ after_success:
 - rm .env.enc
 - docker build -t affinity .
 - docker run -d --name affinity affinity 
-- docker exec -it affinity bash -c "cd /var/www;ls -la"
+- docker exec -it affinity bash -c "cd /var/www;ls -la;cat .env"
 - docker stop affinity
