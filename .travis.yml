@@ -11,6 +11,7 @@ script:
 - docker ps | grep -q affinity
 - docker exec affinity vendor/bin/phpunit
 - docker stop affinity
+- docker rm affinity
 after_success:
 - rm .env
 - rm .env.enc
