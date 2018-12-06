@@ -3,7 +3,7 @@ services:
 - docker
 install:
 - docker build -t affinity .
-- docker run -d -p 50075:50075 --name affinity affinity
+- docker run -d --name affinity affinity
 before_install:
 - openssl aes-256-cbc -K $encrypted_0eded7138acf_key -iv $encrypted_0eded7138acf_iv
   -in .env.enc -out .env -d
