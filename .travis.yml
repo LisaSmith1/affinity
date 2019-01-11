@@ -8,7 +8,6 @@ before_install:
 - openssl aes-256-cbc -K $encrypted_0eded7138acf_key -iv $encrypted_0eded7138acf_iv
   -in .env.enc -out .env -d
 script:
-- docker ps | grep -q affinity
 - docker exec affinity vendor/bin/phpunit
 - docker stop affinity
 - docker rm affinity
@@ -16,6 +15,12 @@ after_success:
 - rm .env
 - rm .env.enc
 - docker build -t affinity .
-- docker run -d --name affinity affinity
-- docker exec -it affinity bash -c "cd /var/www;ls -la;"
-- docker stop affinity
+- pip install --user awscli
+- export PATH=$PATH:$HOME/.local/bin
+- eval $(aws ecr get-login --region us-west-2)
+- docker tag affinitytest:latest 973408325585.dkr.ecr.us-west-2.amazonaws.com/affinitytest:latest
+- docker push 973408325585.dkr.ecr.us-west-2.amazonaws.com/affinitytest:latest
+
+env:
+  global:
+    secure: bM13+mwXddcZDkQrP6FkfD6aKLqERYGCxYB/ftAYfC2nLWhnnwAM8kSJX4zO1OzZ0kCkIeFMKOgaLD2H17FO4HdHJop9NbQKhk7KSm1C0+in1vbGoUDhkMkV6IzeDer6i5HAoEKc8lEpWL72tIIcjwIrT65F63GUeOQ49C735aNCsPFOcM4J3cejIJGxbplOZrpcmZLyymIFwe3HoF3ElF9RNA01gks/Wtfo2AmJrrXiZbnj9BVtLaBX7oUBCwlEmrAOLI6UtJnEDuSzTbUKb1YP/a5GeXh5k3W1g1OVMySi3AojMtIPBw+jZrVZK4MQi2iAAmM++VzCnUOcSwjmRce6OKQXFWSA6Mbvve/C1ISN1B9Yv7390k7J/pk2M03VbG/yfDljyKNAUgngbwILSTaUwO8a01nfTmIhQNALoGkI2ZzMSRCyX9AKlP6zK3OecbKrGALGq3MtnU/B+lwAqS2WOFzSpzZZB/C5wGl7ykkHdE2YaxKli4Vp2g93RSV9i2BdBbYZhdHx3q41hHCbrBR15a05ZxpeYh+zMOkA2ves4D31H6i0Mo61/5NAtja2DSuymRmZy9U/f6TvfVqOqobOyaKUM+KXUGwewtUCA2C+MC+UO3uQsswgf8HbXN+Mu4dws8LKD6AX8Y6T+DRd3W9Xl6TtxCxeydzNr/6UG1o=

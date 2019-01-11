@@ -1,0 +1,9 @@
+# /etc/confd/conf.d/dotenv.toml
+[template]
+src = "dotenv.tmpl"
+#dest = "/var/www/client-api/.env"
+dest = "/var/www/affinity/.env"
+keys = [
+    #"/client-api",
+    "/affinity/demo",
+]
