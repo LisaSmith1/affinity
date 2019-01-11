@@ -17,8 +17,8 @@ after_success:
 - pip install --user awscli
 - eval $(aws ecr get-login --region us-west-2)
 - docker build -t affinity .
-- docker tag affinitytest:latest 973408325585.dkr.ecr.us-west-2.amazonaws.com/affinitytest:latest
-- docker push 973408325585.dkr.ecr.us-west-2.amazonaws.com/affinitytest:latest
+- docker tag affinitytest:v1 973408325585.dkr.ecr.us-west-2.amazonaws.com/affinitytest:v1
+- docker push 973408325585.dkr.ecr.us-west-2.amazonaws.com/affinitytest:v1
 
 env:
   global:
