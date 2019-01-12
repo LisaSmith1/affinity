@@ -9,5 +9,5 @@ COPY --chown=www-data:www-data . /var/www/
 WORKDIR /var/www/
 RUN composer install
 
-ENTRYPOINT [ "/usr/local/bin/entrypoint.sh" ]
+#ENTRYPOINT [ "/usr/local/bin/entrypoint.sh" ]
 
