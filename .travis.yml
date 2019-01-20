@@ -1,4 +1,3 @@
-sudo: required
 services:
 - docker
 install:
@@ -6,10 +5,9 @@ install:
 - docker run -d --name affinity affinity
 #- docker-compose up --build -d
 before_install:
-#- openssl aes-256-cbc -K $encrypted_0eded7138acf_key -iv $encrypted_0eded7138acf_iv
-#  -in .env.enc -out .env -d
 - pip install --user awscli
 - export PATH=$PATH:$HOME/.local/bin
+- eval $(aws ecr get-login --no-include-email --region us-west-2)
 - aws ssm get-parameters-by-path --region us-west-2 --with-decryption --path "/api/affinity/demo/" | jq -r '.Parameters[] | ([.Name, "\"" + .Value + "\""]) | join("=")' > /tmp/dev.affinity.ini
 - sed -i~ 's#/api/affinity/demo/##' /tmp/dev.affinity.ini
 - mv /tmp/dev.affinity.ini .env
