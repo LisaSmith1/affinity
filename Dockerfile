@@ -3,10 +3,10 @@ FROM kwedertz/base-prod
 ENV AWS_REGION=us-west-2
 
 #get current code
-COPY --chown=www-data:www-data . /var/www/
+COPY --chown=www-data:www-data . /var/www/html
 
 #run composer install
-WORKDIR /var/www/
+WORKDIR /var/www/html
 RUN composer install
 
 #ENTRYPOINT [ "/usr/local/bin/entrypoint.sh" ]
