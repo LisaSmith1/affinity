@@ -17,12 +17,12 @@ before_install:
 - ls -la
 - pwd
 - docker build -t affinity .
-- docker run --name affinity -d -v ${TRAVIS_BUILD_DIR}:/var/www/ affinity
+- docker run -t affinity -d -v ${TRAVIS_BUILD_DIR}:/var/www/ affinity
 script:
 #- docker build -t affinity .
 #- docker run -d -v ${TRAVIS_BUILD_DIR}:/var/www affinity
 - docker ps 
-- docker exec affinity "ls -a"  
+- docker exec affinity bash -c 'pwd && ls -a && cd /var/www && ls -a'  
 #- docker stop affinity
 #- docker rm affinity
 #after_success:
