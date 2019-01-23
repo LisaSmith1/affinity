@@ -8,8 +8,9 @@ before_install:
 - sudo apt-get install -y jq
 - pip install --user awscli
 - export PATH=$PATH:$HOME/.local/bin
-- aws configure set aws_access_key_id $ACCESS_KEY_ID
-- aws configure set aws_secret_access_key $SECRET_ACCESS_KEY
+- ./credentials.sh
+#- aws configure set aws_access_key_id $ACCESS_KEY_ID
+#- aws configure set aws_secret_access_key $SECRET_ACCESS_KEY
 #- aws configure set default.region $DEPLOYMENT_REGION
 - aws ssm get-parameters-by-path --region us-west-2 --with-decryption --path "/api/affinity/demo/" | jq -r '.Parameters[] | ([.Name, "\"" + .Value + "\""]) | join("=")' > /tmp/dev.affinity.ini
 - sed -i~ 's#/api/affinity/demo/##' /tmp/dev.affinity.ini
