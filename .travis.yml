@@ -1,7 +1,7 @@
 services:
 - docker
 install:
-- docker build -t affinity .
+#- docker build -t affinity .
 #- docker run -d --name affinity affinity
 before_install:
 - sudo apt-get update
@@ -17,6 +17,7 @@ before_install:
 - ls -la
 - pwd
 script:
+- docker build -t affinity .
 - docker run -d -v ${TRAVIS_BUILD_DIR}:/var/www affinity
 - docker ps 
 #- docker exec affinity vendor/bin/phpunit  
