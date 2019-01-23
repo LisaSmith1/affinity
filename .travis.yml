@@ -18,7 +18,8 @@ before_install:
 - pwd
 script:
 - docker run -d -v ${TRAVIS_BUILD_DIR}:/var/www affinity
-- docker exec affinity vendor/bin/phpunit  
+- docker ps 
+#- docker exec affinity vendor/bin/phpunit  
 #- docker stop affinity
 #- docker rm affinity
 #after_success:
