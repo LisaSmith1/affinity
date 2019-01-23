@@ -4,27 +4,25 @@ install:
 - docker build -t affinity .
 - docker run -d --name affinity affinity
 before_install:
+- sudo apt-get update
 - sudo apt-get install -y python3.4
+- sudo apt-get install -y 
 - sudo apt-get install -y jq
 - pip install --user awscli
 - export PATH=$PATH:$HOME/.local/bin
 - ./credentials.sh
-#- aws configure set aws_access_key_id $ACCESS_KEY_ID
-#- aws configure set aws_secret_access_key $SECRET_ACCESS_KEY
-#- aws configure set default.region $DEPLOYMENT_REGION
 - aws ssm get-parameters-by-path --region us-west-2 --with-decryption --path "/api/affinity/demo/" | jq -r '.Parameters[] | ([.Name, "\"" + .Value + "\""]) | join("=")' > /tmp/dev.affinity.ini
 - sed -i~ 's#/api/affinity/demo/##' /tmp/dev.affinity.ini
 - mv /tmp/dev.affinity.ini .env
 - ls -la
+- pwd
 script:
 - docker exec affinity vendor/bin/phpunit
 #- docker stop affinity
 #- docker rm affinity
 #after_success:
 - rm .env
-#- rm .env.enc
 # This should be added to a script
-#- pip install --user awscli
 #- export PATH=$PATH:$HOME/.local/bin
 #- eval $(aws ecr get-login --no-include-email --region us-west-2)
 #- docker build -t affinity:v1.1 .
