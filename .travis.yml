@@ -4,7 +4,7 @@ install:
 - docker build -t affinity .
 - docker run -d --name affinity affinity
 before_install:
-- sudo apt-get install -y python
+- sudo apt-get install -y python3.4
 - sudo apt-get install -y jq
 - pip install --user awscli
 - export PATH=$PATH:$HOME/.local/bin
