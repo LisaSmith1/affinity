@@ -6,7 +6,8 @@ install:
 before_install:
 - sudo apt-get install -y python
 - sudo apt-get install -y jq
-- pip install --upgrade awscli
+- pip install --user awscli
+- export PATH=$PATH:$HOME/.local/bin
 - aws configure set aws_access_key_id $ACCESS_KEY_ID
 - aws configure set aws_secret_access_key $SECRET_ACCESS_KEY
 #- aws configure set default.region $DEPLOYMENT_REGION
