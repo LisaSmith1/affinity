@@ -14,8 +14,8 @@ before_install:
 #- docker run --name affinity -d -v ${TRAVIS_BUILD_DIR}:/var/www/ affinity
 script:
 - docker build -t affinity .
-#- docker run --name affinity -d -v ${TRAVIS_BUILD_DIR}:/var/www/ affinity
-- docker run --name affinity -d affinity 
+- docker run --name affinity -d -v ${TRAVIS_BUILD_DIR}:/var/www/ affinity
+#- docker run --name affinity -d affinity 
 #- docker exec affinity bash -c 'pwd && ls -la && composer install && vendor/bin/phpunit'  
 - docker exec affinity vendor/bin/phpunit
 #after_success:
