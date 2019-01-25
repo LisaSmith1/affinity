@@ -19,6 +19,7 @@ script:
 - docker exec affinity bash -c 'pwd && ls -la && composer install && vendor/bin/phpunit && tail -200 storage/logs/laravel.log'  
 #- docker stop affinity
 #- docker rm affinity
+# I THINK THIS IS GOING TO WORK
 #after_success:
 - rm .env
 # This should be added to a script
