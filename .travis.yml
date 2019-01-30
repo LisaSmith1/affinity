@@ -13,7 +13,7 @@ before_install:
 script:
 - docker build -t ${PROJECT} .
 - docker run --name ${PROJECT} -d -v ${TRAVIS_BUILD_DIR}:/var/www/ ${PROJECT} 
-- docker exec ${PROJECT} bash -c 'composer install && vendor/bin/phpunit'  
+- docker exec ${PROJECT} bash -c 'composer install && vendor/bin/phpunit && ls -la'  
 #after_success:
 - rm .env
 # This should be added to a script
