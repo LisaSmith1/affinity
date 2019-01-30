@@ -7,8 +7,8 @@ before_install:
 - pip install --user awscli
 - export PATH=$PATH:$HOME/.local/bin
 - ./credentials.sh
-- aws ssm get-parameters-by-path --region us-west-2 --with-decryption --path "/api/${PROJECT}/demo/" | jq -r '.Parameters[] | ([.Name, "\"" + .Value + "\""]) | join("=")' > /tmp/dev.${PROJECT}.ini
-- sed -i~ 's#/api/${PROJECT}/demo/##' /tmp/dev.${PROJECT}.ini
+- aws ssm get-parameters-by-path --region us-west-2 --with-decryption --path "/api/affinity/demo/" | jq -r '.Parameters[] | ([.Name, "\"" + .Value + "\""]) | join("=")' > /tmp/dev.affinity.ini
+- sed -i~ 's#/api/affinity/demo/##' /tmp/dev.affinity.ini
 - mv /tmp/dev.${PROJECT}.ini .env
 script:
 - docker build -t ${PROJECT} .
