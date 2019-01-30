@@ -7,13 +7,13 @@ before_install:
 - pip install --user awscli
 - export PATH=$PATH:$HOME/.local/bin
 - ./credentials.sh
-- aws ssm get-parameters-by-path --region us-west-2 --with-decryption --path "/api/${APP_NAME}/demo/" | jq -r '.Parameters[] | ([.Name, "\"" + .Value + "\""]) | join("=")' > /tmp/dev.${APP_NAME}.ini
-- sed -i~ 's#/api/${APP_NAME}/demo/##' /tmp/dev.${APP_NAME}.ini
-- mv /tmp/dev.${APP_NAME}.ini .env
+- aws ssm get-parameters-by-path --region us-west-2 --with-decryption --path "/api/affinity/demo/" | jq -r '.Parameters[] | ([.Name, "\"" + .Value + "\""]) | join("=")' > /tmp/dev.affinity.ini
+- sed -i~ 's#/api/affinity/demo/##' /tmp/dev.affinity.ini
+- mv /tmp/dev.affinity.ini .env
 script:
-- docker build -t ${APP_NAME} .
-- docker run --name ${APP_NAME} -d -v ${TRAVIS_BUILD_DIR}:/var/www/ ${APP_NAME}
-- docker exec ${APP_NAME} bash -c 'composer install && vendor/bin/phpunit'  
+- docker build -t affinity .
+- docker run --name affinity -d -v ${TRAVIS_BUILD_DIR}:/var/www/ affinity 
+- docker exec affinity bash -c 'composer install && vendor/bin/phpunit'  
 #after_success:
 - rm .env
 # This should be added to a script
