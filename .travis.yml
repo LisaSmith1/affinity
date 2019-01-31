@@ -10,9 +10,11 @@ before_install:
 - aws ssm get-parameters-by-path --region us-west-2 --with-decryption --path "/api/${PROJECT}/demo/" | jq -r '.Parameters[] | ([.Name, "\"" + .Value + "\""]) | join("=")' > /tmp/dev.${PROJECT}.ini
 - sed -i~ 's#/api/affinity/demo/##' /tmp/dev.${PROJECT}.ini
 - mv /tmp/dev.${PROJECT}.ini .env
-script:
 - docker build -t ${PROJECT} .
-- docker run --name ${PROJECT} -d -v ${TRAVIS_BUILD_DIR}:/var/www/ ${PROJECT} 
+- docker run --name ${PROJECT} -d -v ${TRAVIS_BUILD_DIR}:/var/www/ ${PROJECT}
+script:
+#- docker build -t ${PROJECT} .
+#- docker run --name ${PROJECT} -d -v ${TRAVIS_BUILD_DIR}:/var/www/ ${PROJECT} 
 - docker exec ${PROJECT} bash -c 'composer install --no-interaction && vendor/bin/phpunit'  
 #after_success:
 - rm .env
