@@ -16,15 +16,16 @@ script:
 #- docker build -t ${PROJECT} .
 #- docker run --name ${PROJECT} -d -v ${TRAVIS_BUILD_DIR}:/var/www/ ${PROJECT} 
 - docker exec ${PROJECT} bash -c 'composer install --no-interaction && vendor/bin/phpunit'  
-#after_success:
+after_success:
 - rm .env
 # This should be added to a script
 #- export PATH=$PATH:$HOME/.local/bin
-- eval $(aws ecr get-login --no-include-email --region us-west-2)
-- docker build -t affinity:v1.2 .
-- docker tag affinity:v1.2 973408325585.dkr.ecr.us-west-2.amazonaws.com/affinitytest:v1.2
-- docker push 973408325585.dkr.ecr.us-west-2.amazonaws.com/affinitytest:v1.2
-
+- if [[ "$TRAVIS_BRANCH" == "dev" ]]; then
+  eval $(aws ecr get-login --no-include-email --region us-west-2) ;
+  docker build -t affinity:v1.2 . ;
+  docker tag affinity:v1.2 973408325585.dkr.ecr.us-west-2.amazonaws.com/affinitytest:v1.2 ;
+  docker push 973408325585.dkr.ecr.us-west-2.amazonaws.com/affinitytest:v1.2 ;
+  fi
 env:
   global:
   - PROJECT=affinity
