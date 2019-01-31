@@ -20,7 +20,7 @@ after_success:
 - rm .env
 # This should be added to a script
 #- export PATH=$PATH:$HOME/.local/bin
-- if [[ "$TRAVIS_BRANCH" == "dev" ]]; then
+- if [[ "$TRAVIS_BRANCH" == "docker-stuff" ]]; then
   eval $(aws ecr get-login --no-include-email --region us-west-2) ;
   docker build -t affinity:v1.2 . ;
   docker tag affinity:v1.2 973408325585.dkr.ecr.us-west-2.amazonaws.com/affinitytest:v1.2 ;
