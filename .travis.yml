@@ -24,9 +24,9 @@ after_success:
 - export PATH=$PATH:$HOME/.local/bin
 - if [[ "$TRAVIS_BRANCH" == "docker-stuff" ]]; then
   eval $(aws ecr get-login --no-include-email --region us-west-2) ;
-  docker build -t affinity:$TRAVIS_BUILD_NUMBER . ;
-  docker tag affinity:$TRAVIS_BUILD_NUMBER 973408325585.dkr.ecr.us-west-2.amazonaws.com/affinitytest:$TRAVIS_BUILD_NUMBER ;
-  docker push 973408325585.dkr.ecr.us-west-2.amazonaws.com/affinitytest:$TRAVIS_BUILD_NUMBER ;
+  docker build -t affinity:$TRAVIS_TAG . ;
+  docker tag affinity:$TRAVIS_TAG 973408325585.dkr.ecr.us-west-2.amazonaws.com/affinitytest:$TRAVIS_TAG ;
+  docker push 973408325585.dkr.ecr.us-west-2.amazonaws.com/affinitytest:$TRAVIS_TAG ;
   fi
 #deploy:
 #  provider: script
