@@ -6,7 +6,7 @@ before_install:
 - sudo apt-get install -y jq
 - pip install --user awscli
 - export PATH=$PATH:$HOME/.local/bin
-- cd .travis
+#- cd .travis
 - ./credentials.sh
 - aws ssm get-parameters-by-path --region us-west-2 --with-decryption --path "/api/${PROJECT}/demo/" | jq -r '.Parameters[] | ([.Name, "\"" + .Value + "\""]) | join("=")' > /tmp/dev.${PROJECT}.ini
 - sed -i~ 's#/api/affinity/demo/##' /tmp/dev.${PROJECT}.ini
