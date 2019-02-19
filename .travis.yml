@@ -19,6 +19,7 @@ script:
 - docker exec ${PROJECT} bash -c 'composer install --no-interaction && vendor/bin/phpunit'  
 after_success:
 - rm .env
+- docker rmi ${PROJECT}
 # This should be added to a script
 #- export PATH=$PATH:$HOME/.local/bin
 #- if [[ "$TRAVIS_BRANCH" == "docker-stuff" ]]; then
