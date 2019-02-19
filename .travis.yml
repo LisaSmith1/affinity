@@ -19,20 +19,20 @@ script:
 - docker exec ${PROJECT} bash -c 'composer install --no-interaction && vendor/bin/phpunit'  
 after_success:
 - rm .env
-- docker rmi ${PROJECT}
+#- docker rmi ${PROJECT}
 # This should be added to a script
-#- export PATH=$PATH:$HOME/.local/bin
-#- if [[ "$TRAVIS_BRANCH" == "docker-stuff" ]]; then
-#  eval $(aws ecr get-login --no-include-email --region us-west-2) ;
-#  docker build -t affinity:v1.4 . ;
-#  docker tag affinity:v1.4 973408325585.dkr.ecr.us-west-2.amazonaws.com/affinitytest:v1.4 ;
-#  docker push 973408325585.dkr.ecr.us-west-2.amazonaws.com/affinitytest:v1.4 ;
-#  fi
-deploy:
-  provider: script
-  script: bash deploy.sh
-  on:
-    branch: docker-stuff
+- export PATH=$PATH:$HOME/.local/bin
+- if [[ "$TRAVIS_BRANCH" == "docker-stuff" ]]; then
+  eval $(aws ecr get-login --no-include-email --region us-west-2) ;
+  docker build -t affinity:v1.4 . ;
+  docker tag affinity:v1.4 973408325585.dkr.ecr.us-west-2.amazonaws.com/affinitytest:v1.4 ;
+  docker push 973408325585.dkr.ecr.us-west-2.amazonaws.com/affinitytest:v1.4 ;
+  fi
+#deploy:
+#  provider: script
+#  script: bash deploy.sh
+#  on:
+#    branch: docker-stuff
 env:
   global:
   - PROJECT=affinity
