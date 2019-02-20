@@ -5,8 +5,8 @@ before_install:
 - sudo apt-get install -y python3.4
 - sudo apt-get install -y jq
 - pip install --user awscli
-- git tags 
-#- version=$(tail -1 /tmp/dev/version.txt)
+- git tag > /tmp/dev/version.txt 
+- version=$(tail -1 /tmp/dev/version.txt)
 - export PATH=$PATH:$HOME/.local/bin
 #- cd .travis
 - ./credentials.sh
@@ -40,6 +40,6 @@ env:
   global:
   - PROJECT=affinity
   - DEPLOYMENT_REGION=us-west-2
-  - TIMESTAMP=$(date '+%Y%m%d%H%M%S')
-  - VERSION="${TIMESTAMP}-${TRAVIS_COMMIT}"
+#  - TIMESTAMP=$(date '+%Y%m%d%H%M%S')
+#  - VERSION="${TIMESTAMP}-${TRAVIS_COMMIT}"
   - secure: dz7BVeUlV7YOx2OSyO6i7IURHkX+jvfIV6HoS9leXSCoYToQ1FrDFem6LjpM7nZXvbmAaLLmzLXvJtEjkR01mJIRKFjLi6Z/XhI6W5t5BesB5pfqjkzhVuvI9halmJxK/HEbY8biDoAl61spj3+s3CUeKZYGT9RbnaVqf3lFigxQvNKJHX3L3NvwafK+WCpB5E/4pJ8toMAtdQT0s1G36l0UtQCkHiRYTboXxRrdLyKPwp/yRDDxZ6854J3IIKs5qVtJjcHOcUopuPT5GGw4r0creYZ/GZtYQDGvrCnAXY4g9fHUMfZW4qifxEV2rKhyf31te+DZssb3NwENvy9bGX8I2mB6TUuOx92qbPw/0krQLU0f8mAvNEBTPbTYLEl9L88QSYCRLqrm5J50pxZuxvOrZJvZ79SZlcE2gOJw4YqmCDReRJ5OkxmG6RunAMD6sW8u0JVhU6fTUoEUObKGsyrNdLcrvrFWy7UIPeqhxeL8pr6HvVgLVyz7Cl801Uw3sM+3uXzHdo4EqecmP3iEoRsMxa+/W3QNGJQwJikefnCUrZ79q/E77ZJxZ+jWXTTnHu3zOzxbYnMvUfpdhm3z7+tzHa/FZ/DwiaazuShwLv63ZQlLThO3T9C2jjwli4anjerZvvd2hwDTGTMuHr9RXXae44t0xwHw74v097C+wOY=
