@@ -5,7 +5,7 @@ before_install:
 - sudo apt-get install -y python3.4
 - sudo apt-get install -y jq
 - pip install --user awscli
-- git tag > /tmp/dev/version.txt 
+- git tag | > /tmp/dev/version.txt 
 - version=$(tail -1 /tmp/dev/version.txt)
 - export PATH=$PATH:$HOME/.local/bin
 #- cd .travis
