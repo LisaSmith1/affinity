@@ -34,7 +34,8 @@ after_success:
 #  fi
 deploy:
   provider: script
-  script: bash deploy.sh $TRAVIS_BRANCH
+  skip_cleanup: true
+  script: bash deploy.sh $TRAVIS_BRANCH $PROJECT $VERSION
   on:
     branch: docker-stuff
 env:
