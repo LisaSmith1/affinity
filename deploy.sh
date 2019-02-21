@@ -4,8 +4,8 @@
 # Push image to ECR
 - export PATH=$PATH:$HOME/.local/bin
 - if [[ "$TRAVIS_BRANCH" == "docker-stuff" ]]; then
-  eval $(aws ecr get-login --no-include-email --region us-west-2) ;
-  docker build -t ${PROJECT}:${VERSION} . ;
-  docker tag ${PROJECT}:${VERSION} 973408325585.dkr.ecr.us-west-2.amazonaws.com/${PROJECT}:${VERSION} ;
-  docker push 973408325585.dkr.ecr.us-west-2.amazonaws.com/affinitytest:${VERSION} ;
+  eval $(aws ecr get-login --no-include-email --region us-west-2);
+  docker build -t ${PROJECT}:${VERSION} .;
+  docker tag ${PROJECT}:${VERSION} 973408325585.dkr.ecr.us-west-2.amazonaws.com/${PROJECT}:${VERSION};
+  docker push 973408325585.dkr.ecr.us-west-2.amazonaws.com/affinitytest:${VERSION};
   fi
