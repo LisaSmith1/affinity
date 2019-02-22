@@ -8,5 +8,5 @@ if [[ "$TRAVIS_BRANCH" == "docker-stuff" ]]; then
   #Lets build, tag and push our image
   docker build -t ${PROJECT}:${VERSION} .;
   docker tag ${PROJECT}:${VERSION} 973408325585.dkr.ecr.us-west-2.amazonaws.com/${ECR_REPO}:${VERSION};
-  docker push 973408325585.dkr.ecr.us-west-2.amazonaws.com/affinitytest:${ECR_REPO};
+  docker push 973408325585.dkr.ecr.us-west-2.amazonaws.com/${ECR_REPO}:${VERSION}
  fi
