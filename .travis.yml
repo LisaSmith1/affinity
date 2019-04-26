@@ -5,11 +5,8 @@ before_install:
 - sudo apt-get install -y python3.4
 - sudo apt-get install -y jq
 - pip install --user awscli
-#- git tag > /tmp/dev/version.txt 
 - git tag 
-#- version=$(tail -1 /tmp/dev/version.txt)
 - export PATH=$PATH:$HOME/.local/bin
-#- cd .travis
 - ./credentials.sh
 - aws ssm get-parameters-by-path --region us-west-2 --with-decryption --path "/api/${PROJECT}/demo/" | jq -r '.Parameters[] | ([.Name, "\"" + .Value + "\""]) | join("=")' > /tmp/dev.${PROJECT}.ini
 - sed -i~ 's#/api/affinity/demo/##' /tmp/dev.${PROJECT}.ini
@@ -17,21 +14,10 @@ before_install:
 - docker build -t ${PROJECT} .
 - docker run --name ${PROJECT} -d -v ${TRAVIS_BUILD_DIR}:/var/www/ ${PROJECT}
 script:
-#- docker build -t ${PROJECT} .
-#- docker run --name ${PROJECT} -d -v ${TRAVIS_BUILD_DIR}:/var/www/ ${PROJECT} 
 - docker exec ${PROJECT} bash -c 'composer install --no-interaction && vendor/bin/phpunit'  
 after_success:
 - rm .env
 - docker rm affinity 
-#- docker rmi ${PROJECT}
-# This should be added to a script
-#- export PATH=$PATH:$HOME/.local/bin
-#- if [[ "$TRAVIS_BRANCH" == "docker-stuff" ]]; then
-#  eval $(aws ecr get-login --no-include-email --region us-west-2) ;
-#  docker build -t ${PROJECT}:${VERSION} . ;
-#  docker tag ${PROJECT}:${VERSION} 973408325585.dkr.ecr.us-west-2.amazonaws.com/${ECR_REPO}:${VERSION} ;
-#  docker push 973408325585.dkr.ecr.us-west-2.amazonaws.com/${ECR_REPO}:${VERSION} ;
-#  fi
 deploy:
   provider: script
   skip_cleanup: true
